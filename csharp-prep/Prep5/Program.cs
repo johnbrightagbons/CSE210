@@ -7,10 +7,10 @@ class Program
 
         // Declare Variables to be used
         DisplayWelcome();
-        string UserName = promptUserName();
+        string UserName = PromptUserName();
         int number = PromptUserNumber();
         int numberSquared = SquaredNumber(number);
-        DisplayResult (UserName, SquaredNumber);
+        DisplayResult (name, square);
     }
 
         // Function that return nothing
