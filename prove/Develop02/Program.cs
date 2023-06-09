@@ -35,19 +35,17 @@ class Program
                 if (File.Exists(_jounral._fileName));
                 {
                     _journal.DisplayJournal();
-
                 }
-            }
+            
 
             else
-            {
                 {
                     foreach (string i in _entry._enteries);
                 }
                     {
                         Console.WriteLine($"{i}");
                     }
-            }
+            
 
             else if (_reply == 3)
             {

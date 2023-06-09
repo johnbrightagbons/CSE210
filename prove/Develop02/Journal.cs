@@ -8,8 +8,22 @@ using static System.Console;
 namespace JournalApplication
 {
 
-    class Journal
-    {    
+    public class Journal
+    {  
+        public List<Entry>_entries = new List<Entry>();
+
+        public void AddEntry(Entry entry)
+        {
+            _entries.Add(entry);
+        }  
+
+        public void DisplayTheEntries()
+        {
+            foreach (Entry  entries in _entries)
+            {
+                entry.Display();
+            }
+        }
         public string _fileName = string.Empty;
         public Journal() { }
 

@@ -1,14 +1,14 @@
 public class Assignment // A class called assignment
 {
     private string _name;  // An attribute called name
-    private string _topic; // An attribute called topic
+    private string topicS; // An attribute called topic
 
 
     // Constructors
-    public Assignment (string name, string topic)
+    public Assignment (string name, string topics)
     {
         _name = name;
-        _topic = topic;
+        topicS = topics;
     }
 
     // Set getter
@@ -19,11 +19,11 @@ public class Assignment // A class called assignment
 
     public string GetTopic ()
     {
-        return _topic;
+        return topicS;
     }
 
     public string GetSummary ()
     {
-        return _name + "--" + _topic;
+        return _name + "--" + topicS;
     }
 }
