@@ -4,11 +4,11 @@ using System;
 class Activity
 {
 
-    private string nameOfActivity = string.Empty;
+    private string _nameOfActivity = string.Empty;
     private List<string> activityMenu;
     private string description = string.Empty;
 
-    public Activity (string _nameOfActivity)
+    public Activity (string nameOfActivity)
     {
         activityMenu = nameOfActivity;
     }

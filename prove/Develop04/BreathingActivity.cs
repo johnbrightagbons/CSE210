@@ -7,7 +7,7 @@ class BreathingActivity : Activity
     public BreathingActivity(string _nameOfActivity) : base(_nameOfActivity)
     {
         SetDescription(description);
-        SetActivityList(activityMenu);
+        SetActivityMenu(activityMenu);
     }
 
     public List<string> getActivityList()

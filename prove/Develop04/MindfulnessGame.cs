@@ -3,8 +3,8 @@ using System;
 
 class MindFulnessGame
 {
-    WaitDisplay display = new WaitDisplay();
-    public MindFulness()
+    waitDisplay display = new waitDisplay();
+    public MindFulnessGame()
     {
 
         Activity newA = new Activity("Start Activity");
@@ -16,39 +16,39 @@ class MindFulnessGame
         if (choice == 1)
         {
             BreathingActivity breath = new BreathingActivity("Breathing");
-            int timeToRun = breath.DisplayWelcomeMessage();
+            int numberSecondsToRun = breath.DisplayWelcomeMessage();
             breath.DisplayGetReady();
             display.displaySpinner(3);
-            display.displayCountDown(4, timeToRun, breath.getActivityList());
-            breath.FinishActivity(timeToRun, breath.getActivityName());
+            display.displayCountDown(4, numberSecondsToRun, breath.getActivityList());
+            breath.FinishActivity(numberSecondsToRun, breath.getActivityName());
             display.displaySpinner(5);
             SetActivity(breath.DisplayMenu());
         }
         else if (choice == 2)
         {
             ReflectionActivity reflect = new ReflectionActivity("Reflection");
-            int numSecondsToRun = reflect.DisplayWelcomeMessage();
-            reflect.setNumberOfSecondsToThink(timeToRun);
+            int numberSecondsToRun = reflect.DisplayWelcomeMessage();
+            reflect.setNumberOfSecondsToThink(numberSecondsToRun);
             reflect.DisplayGetReady();
             display.displaySpinner(3);
             reflect.getRandomReflectionActivity();
-            display.displayCountDown(4, timeToRun, null, "You can start in ");
+            display.displayCountDown(4, numberSecondsToRun, null, "Starting in ");
             display.displaySpinnerWithText(reflect.getRandomReflectionQuestionActivity(), reflect.getNumberOfSecondsToThink());
-            reflect.FinishActivity(timeToRun, reflect.getActivityName());
+            reflect.FinishActivity(numberSecondsToRun, reflect.getActivityName());
             display.displaySpinner(5);
             SetActivity(reflect.DisplayMenu());
         }
         else if (choice == 3)
         {
             ListingActivity listing = new ListingActivity("Listing");
-            int timeToRun = listing.DisplayWelcomeMessage();
+            int numberSecondsToRun = listing.DisplayWelcomeMessage();
             listing.DisplayGetReady();
             display.displaySpinner(3);
             listing.DisplayActivity();
-            display.displayCountDown(4, timeToRun, null, "You can start in  ");
-            listing.setListingList(display.GetMultipleLinesWithTimer(timeToRun));
+            display.displayCountDown(4, numberSecondsToRun, null, "Starting in ");
+            listing.setListingList(display.GetMultipleLinesWithTimer(numberSecondsToRun));
             listing.displayTotalListingCount();
-            listing.FinishActivity(timeToRun, listing.getActivityName());
+            listing.FinishActivity(numberSecondsToRun, listing.getActivityName());
             display.displaySpinner(5);
             SetActivity(listing.DisplayMenu());
 

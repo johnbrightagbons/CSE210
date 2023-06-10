@@ -4,7 +4,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop04 World!");
+        
+        MindFulnessGame mind = new MindFulnessGame();
 
         for (int time = 5; time >0; time--)
         {

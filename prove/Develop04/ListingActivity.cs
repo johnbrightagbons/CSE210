@@ -13,7 +13,7 @@ class ListingActivity : Activity
     public ListingActivity(string _nameOfActivity) : base(_nameOfActivity)
     {
         SetDescription(description);
-        SetActivityList(activityMenu);
+        SetActivityMenu(activityMenu);
     }
 
     public void DisplayActivity()

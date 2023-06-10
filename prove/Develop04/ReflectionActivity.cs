@@ -19,7 +19,7 @@ class ReflectionActivity : Activity
     public ReflectionActivity(string _nameOfActivity) : base(_nameOfActivity)
     {
         SetDescription(description);
-        SetActivityList(activityMenu);
+        SetActivityMenu(_activityMenu);
     }
 
     public void setNumberOfSecondsToThink(int timeToRun)
@@ -29,7 +29,7 @@ class ReflectionActivity : Activity
 
     public int getNumberOfSecondsToThink()
     {
-        return numberOfSecondsTothink;
+        return thinkingSeconds;
     }
 
     public List<string> getQuestionList()
@@ -51,7 +51,7 @@ class ReflectionActivity : Activity
 
     public List<string> getRandomReflectionQuestionActivity()
     {
-        int numberOfIndexes = numberOfSecondsTothink;
+        int numberOfIndexes = timeTothink;
         Random random = new Random();
         List<string> list = new List<string>();
         foreach (int i in Range(1, QuestionList.Count))
