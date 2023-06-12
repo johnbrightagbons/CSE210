@@ -2,6 +2,9 @@ using System;
 
 class Program
 {
+    private static string name;
+    private static int square;
+
     static void Main(string[] args)
     {
 
