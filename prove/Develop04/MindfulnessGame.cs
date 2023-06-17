@@ -1,66 +1,68 @@
-using System;
-
-
-class MindFulnessGame
+class MindfulnessGame
 {
-    waitDisplay display = new waitDisplay();
-    public MindFulnessGame()
-    {
+    private WaitDisplay display;
 
-        Activity newA = new Activity("Start Activity");
-        SetActivity(newA.DisplayMenu());
+    public MindfulnessGame()
+    {
+        display = new WaitDisplay();
+        StartGame();
     }
 
-    public void SetActivity(int choice)
+    public void StartGame()
     {
-        if (choice == 1)
+        int choice = DisplayMainMenu();
+        while (choice != 4)
         {
-            BreathingActivity breath = new BreathingActivity("Breathing");
-            int numberSecondsToRun = breath.DisplayWelcomeMessage();
-            breath.DisplayGetReady();
-            display.displaySpinner(3);
-            display.displayCountDown(4, numberSecondsToRun, breath.getActivityList());
-            breath.FinishActivity(numberSecondsToRun, breath.getActivityName());
-            display.displaySpinner(5);
-            SetActivity(breath.DisplayMenu());
+            switch (choice)
+            {
+                case 1:
+                    BreathingActivity breath = new BreathingActivity("Breathing");
+                    int breathTimeToRun = breath.DisplayWelcomeMessage();
+                    breath.DisplayGetReady();
+                    display.DisplaySpinner(3);
+                    display.DisplayCountDown(4, breathTimeToRun, breath.GetActivityMenu());
+                    breath.FinishActivity(breathTimeToRun);
+                    display.DisplaySpinner(5);
+                    break;
+                case 2:
+                    ReflectionActivity reflect = new ReflectionActivity("Reflection");
+                    int reflectTimeToRun = reflect.DisplayWelcomeMessage();
+                    reflect.SetNumberOfSecondsToThink(reflectTimeToRun);
+                    reflect.DisplayGetReady();
+                    display.DisplaySpinner(3);
+                    reflect.GetRandomReflectionActivity();
+                    display.DisplayCountDown(4, reflectTimeToRun);
+                    display.DisplaySpinnerWithText(reflect.GetRandomReflectionQuestionActivity(), reflect.GetNumberOfSecondsToThink());
+                    reflect.FinishActivity(reflectTimeToRun);
+                    display.DisplaySpinner(5);
+                    break;
+                case 3:
+                    ListingActivity listing = new ListingActivity("Listing");
+                    int listingTimeToRun = listing.DisplayWelcomeMessage();
+                    listing.DisplayGetReady();
+                    display.DisplaySpinner(3);
+                    listing.DisplayActivity();
+                    display.DisplayCountDown(4, listingTimeToRun);
+                    display.DisplaySpinnerWithText(display.GetMultipleLinesWithTimer(listingTimeToRun), listingTimeToRun);
+                    listing.FinishActivity(listingTimeToRun);
+                    display.DisplaySpinner(5);
+                    break;
+            }
+            choice = DisplayMainMenu();
         }
-        else if (choice == 2)
-        {
-            ReflectionActivity reflect = new ReflectionActivity("Reflection");
-            int numberSecondsToRun = reflect.DisplayWelcomeMessage();
-            reflect.setNumberOfSecondsToThink(numberSecondsToRun);
-            reflect.DisplayGetReady();
-            display.displaySpinner(3);
-            reflect.getRandomReflectionActivity();
-            display.displayCountDown(4, numberSecondsToRun, null, "Starting in ");
-            display.displaySpinnerWithText(reflect.getRandomReflectionQuestionActivity(), reflect.getNumberOfSecondsToThink());
-            reflect.FinishActivity(numberSecondsToRun, reflect.getActivityName());
-            display.displaySpinner(5);
-            SetActivity(reflect.DisplayMenu());
-        }
-        else if (choice == 3)
-        {
-            ListingActivity listing = new ListingActivity("Listing");
-            int numberSecondsToRun = listing.DisplayWelcomeMessage();
-            listing.DisplayGetReady();
-            display.displaySpinner(3);
-            listing.DisplayActivity();
-            display.displayCountDown(4, numberSecondsToRun, null, "Starting in ");
-            listing.setListingList(display.GetMultipleLinesWithTimer(numberSecondsToRun));
-            listing.displayTotalListingCount();
-            listing.FinishActivity(numberSecondsToRun, listing.getActivityName());
-            display.displaySpinner(5);
-            SetActivity(listing.DisplayMenu());
-
-        }
-        else
-        {
-            Environment.Exit(0);
-        }
+        Environment.Exit(0);
     }
 
-    public void setActivityTime(int seconds)
+    public int DisplayMainMenu()
     {
-
+        display.ClearConsole();
+        Console.WriteLine("Menu Options: ");
+        Console.WriteLine("   1. Start the breathing activity");
+        Console.WriteLine("   2. Start the reflection activity");
+        Console.WriteLine("   3. Start the listing activity");
+        Console.WriteLine("   4. Quit");
+        Console.WriteLine("Please choose an option from the menu: ");
+        int menuChoice = int.Parse(Console.ReadLine());
+        return menuChoice;
     }
 }

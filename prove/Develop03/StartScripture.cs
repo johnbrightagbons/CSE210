@@ -1,40 +1,37 @@
-using System;
-
-public class StartScripture;
-
+public class StartScripture
 {
-    public List <Scripture> _scriptureTitle = new List <Scripture> ();
-    Selection random = new Selection ();
-    public void LoadToFile()
+    private List<Scripture> _scriptureTitle = new List<Scripture>();
+    private Random random = new Random();
 
+    public void LoadToFile()
     {
         string filename = "scriptures.txt";
         string[] lines = System.IO.File.ReadAllLines(filename);
 
         foreach (string line in lines)
         {
-            string[] half = line.split ("-");
-            string[] reference_string = half[0].split(",");
-                if (reference_string.length == 3)
-                {
-                    Reference _reference = new Reference (reference_string[0], reference_string[1], reference_string[2]);
-                    string _items = half[1];
-                    Scripture _scripture = new Scripture (_items, _reference);
-                    _scriptureTitle.Add(_scripture);
-                }
-                else
-                {
-                    Reference _reference = new Reference (reference_string[0], reference_string[1], reference_string[2]);
-                    string _items = half[1];
-                    Scripture _scripture = new Scripture (_items, _reference);
-                    _scriptureTitle.Add(_scripture); 
-                }
+            string[] half = line.Split("-");
+            string[] referenceString = half[0].Split(",");
+            string items = half[1].Trim();
+            Reference reference;
+
+            if (referenceString.Length == 3)
+            {
+                reference = new Reference(referenceString[0], int.Parse(referenceString[1]), int.Parse(referenceString[2]));
+            }
+            else
+            {
+                reference = new Reference(referenceString[0], int.Parse(referenceString[1]), int.Parse(referenceString[2]), int.Parse(referenceString[3]));
+            }
+
+            Scripture scripture = new Scripture(items, reference);
+            _scriptureTitle.Add(scripture);
         }
     }
 
-    public Scripture getScripture()
+    public Scripture GetScripture()
     {
-        var selectionIndex = selection.Next(0, _scriptureTitle.Count);
+        int selectionIndex = random.Next(0, _scriptureTitle.Count);
         return _scriptureTitle[selectionIndex];
     }
 }

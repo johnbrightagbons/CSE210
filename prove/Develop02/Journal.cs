@@ -1,33 +1,34 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using static System.Console;
 
 namespace JournalApplication
 {
-
     public class Journal
-    {  
-        public List<Entry>_entries = new List<Entry>();
+    {
+        private List<Entry> _entries = new List<Entry>();
+        private string _fileName = string.Empty;
+
+        public Journal(string fileName)
+        {
+            _fileName = fileName;
+        }
 
         public void AddEntry(Entry entry)
         {
             _entries.Add(entry);
-        }  
+        }
 
         public void DisplayTheEntries()
         {
-            foreach (Entry  entries in _entries)
+            foreach (Entry entry in _entries)
             {
                 entry.Display();
             }
         }
-        public string _fileName = string.Empty;
-        public Journal() { }
 
-        // Load the file 
+        // Load the file
         public void RunTheFile()
         {
             Title = "Journal Application";
@@ -37,69 +38,129 @@ namespace JournalApplication
         }
 
         // Create the journal file
-        private void CreateJournal() 
+        private void CreateJournal()
         {
-            using (FileStream fs = File.Create(_fileName)) {}
-         }
+            using (FileStream fs = File.Create(_fileName)) { }
+        }
 
-        // Show a menu of option so that the user can choose
-        static string ShowMenu() 
+        // Show a menu of options so that the user can choose
+        private void ShowMenu()
         {
-            // Set the journal colour
+            // Set the journal color
             ForegroundColor = ConsoleColor.DarkBlue;
             BackgroundColor = ConsoleColor.DarkRed;
             Clear();
 
             // Display the welcome message of the journal and
             // the various options available to the user
-            Console.WriteLine("Welcome to the journal Program");
-            Console.WriteLine("Kindly select an option from the following list");
-            Console.WriteLine("1. Write");
-            Console.WriteLine("2. Display");
-            Console.WriteLine("3. Load");
-            Console.WriteLine("4. Save");
-            Console.WriteLine("5. Quit");
-            Console.WriteLine("What would you like to do? ");
-            string option = Console.ReadLine();
-            return option;
+            WriteLine("Welcome to the journal Program");
+            WriteLine("Kindly select an option from the following list");
+            WriteLine("1. Write");
+            WriteLine("2. Display");
+            WriteLine("3. Load");
+            WriteLine("4. Save");
+            WriteLine("5. Quit");
+            WriteLine("What would you like to do? ");
+            string option = ReadLine();
+
+            // Process the selected option
+            switch (option)
+            {
+                case "1":
+                    WriteToJournal();
+                    break;
+                case "2":
+                    DisplayJournal();
+                    break;
+                case "3":
+                    LoadJournal();
+                    break;
+                case "4":
+                    SaveJournal();
+                    break;
+                case "5":
+                    // Quit the application
+                    break;
+                default:
+                    WriteLine("Invalid option. Please try again.");
+                    break;
+            }
         }
-        
 
         // Display journal contents
-        public void DisplayJournal() 
+        public void DisplayJournal()
         {
-            using (StreamReader _sr = File.OpenText(_fileName))
+            using (StreamReader sr = File.OpenText(_fileName))
             {
-                string _short = "";
-                while ((_short = _sr.ReadLine()) ! = null)
+                string line = "";
+                while ((line = sr.ReadLine()) != null)
                 {
-                    Console.WriteLine(_short);
+                    WriteLine(line);
                 }
             }
-         }
-        
-    
-        public string  WriteToJournal (string _line)
+        }
+
+        // Write to the journal file
+        public void WriteToJournal()
         {
-            using (StreamWriter outputFile = File.AppendText(_fileName))     
+            WriteLine("Enter the text to write to the journal:");
+            string line = ReadLine();
+
+            using (StreamWriter outputFile = File.AppendText(_fileName))
             {
-                outputFile.WriteLine(_line);
+                outputFile.WriteLine(line);
             }
+        }
+
+        // Load the journal file
+        public void LoadJournal()
+        {
+            if (File.Exists(_fileName))
+            {
+                _entries.Clear();
+
+                using (StreamReader sr = File.OpenText(_fileName))
+                {
+                    string line = "";
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        _entries.Add(new Entry(line));
+                    }
+                }
+
+                WriteLine("Journal loaded successfully.");
+            }
+            else
+            {
+                WriteLine("Journal file does not exist.");
+            }
+        }
+
+        // Save the journal file
+        public void SaveJournal()
+        {
+            using (StreamWriter sw = File.CreateText(_fileName))
+            {
+                foreach (Entry entry in _entries)
+                {
+                    sw.WriteLine(entry.Text);
+                }
+            }
+
+            WriteLine("Journal saved successfully.");
         }
 
         // Closing message
-        private void DisplayOutro() 
+        private void DisplayOutro()
         {
-            WriteLine ("Thanks for using the Journal Application. ");
+            WriteLine("Thanks for using the Journal Application.");
             ReadKey(true);
         }
-        
-
-
     }
-}
 
+    public class Entry
+    {
+        public string Text { get; set; }
 
-
-
-
+        public Entry(string)
+    }

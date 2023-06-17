@@ -1,32 +1,29 @@
-using System;
-
-public class Word;
-
-// Attributes for the word class
+public class Word
 {
     private string _word;
-    public word(string word)
+
+    public Word(string word)
     {
-       _word = word; 
+        _word = word;
     }
 
-    public void hideWord()
+    public void HideWord()
     {
-        string newWord = " ";
-        foreach (char c in _word)
+        _word = "";
+        for (int i = 0; i < _word.Length; i++)
         {
-            newWord += "_";
+            _word += "_";
         }
     }
 
-    public string showWord()
+    public string ShowWord()
     {
         return _word;
     }
 
-    public Boolean isHidden()
+    public bool IsHidden()
     {
-        if (_word.sSubstring (1,2) == "_")
+        if (_word.Substring(0, 1) == "_")
         {
             return true;
         }
@@ -35,5 +32,4 @@ public class Word;
             return false;
         }
     }
-
 }

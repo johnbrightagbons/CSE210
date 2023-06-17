@@ -1,80 +1,67 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace JournalApplication
 {
-
-class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            int _reply = 0;
-            string _textQuestion = string.Empty;
-            string _file = string.Empty;
-            Entry _entry = new Entry();
-            Journal myJournal = new Journal();
-            _entry.ShowMenu();
+            int reply = 0;
+            string textQuestion = string.Empty;
+            string file = string.Empty;
+            Entry entry = new Entry();
+            Journal journal = new Journal();
 
-            while (_reply !=5)
-            {
-                _entry.menu();
-                _reply = int.Parse(Console.ReadLine());
-            }
+            entry.ShowMenu();
 
-            if (_reply == 1)
+            while (reply != 5)
             {
-                Prompt _prompt = new Prompt(); 
-                _textQuestion = __prompt.DisplayRandomQuestion();
-                Console.WriteLine(_textQuestion);
-                string _answer = Console.ReadLine();
-                string date = _entry.DateToString ();
-                _entry._enteries.Add ($"Date: {date}  - prompt: {_textQuestion} \n {_Answwer}");    
-            }
+                entry.menu();
+                reply = int.Parse(Console.ReadLine());
 
-            else if (_reply == 2)
-            {
-                if (File.Exists(_jounral._fileName));
+                if (reply == 1)
                 {
-                    _journal.DisplayJournal();
+                    Prompt prompt = new Prompt();
+                    textQuestion = prompt.DisplayRandomQuestion();
+                    Console.WriteLine(textQuestion);
+                    string answer = Console.ReadLine();
+                    string date = entry.DateToString();
+                    entry.entries.Add($"Date: {date} - prompt: {textQuestion} \n {answer}");
                 }
-            
-
-            else
+                else if (reply == 2)
                 {
-                    foreach (string i in _entry._enteries);
-                }
+                    if (File.Exists(journal.FileName))
                     {
-                        Console.WriteLine($"{i}");
-                    }
-            
-
-            else if (_reply == 3)
-            {
-                Console.WriteLine("What is your file name? ");
-                _file = Console.ReadLine();
-                _journal._fileName = _fileName;
-            }
-
-            else if (_reply == 4)
-            {
-                if (File.Exists(_journal._fileName))
-                {
-                    foreach (string i in _entry._enteries)
-                    {
-                        _journal.WriteFile(i);
+                        journal.DisplayJournal();
                     }
                 }
-            }
-
-            else 
-            {
-                Console.WriteLine("What is your file name? ");
-                _file = Console.ReadLine();
-                _journal._fileName = _fileName;
-                _Journal.CreateFile();
-                foreach (string i in _entry._enteries)
+                else if (reply == 3)
                 {
-                    _journal.WriteFile(i);
+                    Console.WriteLine("What is your file name? ");
+                    file = Console.ReadLine();
+                    journal.FileName = file;
                 }
-            }    
-    }   }      
+                else if (reply == 4)
+                {
+                    if (File.Exists(journal.FileName))
+                    {
+                        foreach (string i in entry.entries)
+                        {
+                            journal.WriteFile(i);
+                        }
+                    }
+                }
+                else if (reply == 5)
+                {
+                    Console.WriteLine("Exiting the program...");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please try again.");
+                }
+            }
+        }
+    }
 }

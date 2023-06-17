@@ -1,69 +1,68 @@
-using System;
-using System.Collections.Generic;
-using static System.Linq.Enumerable;
-
 class ReflectionActivity : Activity
 {
     private int thinkingSeconds;
-    List<string> activityList = new List<string> { "Think of a time when you stood up for someone else."
-                                                ,"Think of a time when you did something really difficult."
-                                                ,"Think of a time when you helped someone in need."
-                                                ,"Think of a time when you did something truly selfless."};
-    List<string> QuestionList = new List<string>{"Why was this experience meaningful to you?"
-                                                ,"Have you ever done anything like this before?"
-                                                ,"How did you get started?"
-                                                ,"How did you feel when it was complete?"
-                                                ,"What made this time different than other times when you were not as successful?"};
+    private List<string> questionList;
 
-    string description = "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.";
-    public ReflectionActivity(string _nameOfActivity) : base(_nameOfActivity)
+    public ReflectionActivity(string nameOfActivity) : base(nameOfActivity)
     {
-        SetDescription(description);
-        SetActivityMenu(_activityMenu);
+        SetDescription("This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.");
+        SetActivityMenu(new List<string>
+        {
+            "Think of a time when you stood up for someone else.",
+            "Think of a time when you did something really difficult.",
+            "Think of a time when you helped someone in need.",
+            "Think of a time when you did something truly selfless."
+        });
+        questionList = new List<string>
+        {
+            "Why was this experience meaningful to you?",
+            "Have you ever done anything like this before?",
+            "How did you get started?",
+            "How did you feel when it was complete?",
+            "What made this time different than other times when you were not as successful?"
+        };
     }
 
-    public void setNumberOfSecondsToThink(int timeToRun)
+    public void SetNumberOfSecondsToThink(int timeToRun)
     {
         thinkingSeconds = timeToRun / 5;
     }
 
-    public int getNumberOfSecondsToThink()
+    public int GetNumberOfSecondsToThink()
     {
         return thinkingSeconds;
     }
 
-    public List<string> getQuestionList()
+    public List<string> GetQuestionList()
     {
-        return QuestionList;
+        return questionList;
     }
 
-    public void getRandomReflectionActivity()
+    public void GetRandomReflectionActivity()
     {
         Random random = new Random();
-        int index = random.Next(activityList.Count);
+        int index = random.Next(activityMenu.Count);
         Console.WriteLine("Consider the following prompt:");
         Thread.Sleep(200);
-        Console.WriteLine($"---{activityMenu[index]}---");
+        Console.WriteLine($"--- {activityMenu[index]} ---");
         Thread.Sleep(500);
-        Console.WriteLine("Now ponder on each of the following questions as they related to this experience");
+        Console.WriteLine("Now ponder on each of the following questions as they relate to this experience");
         Thread.Sleep(200);
     }
 
-    public List<string> getRandomReflectionQuestionActivity()
+    public List<string> GetRandomReflectionQuestionActivity()
     {
-        int numberOfIndexes = timeTothink;
+        int numberOfIndexes = thinkingSeconds;
         Random random = new Random();
         List<string> list = new List<string>();
-        foreach (int i in Range(1, QuestionList.Count))
+        while (list.Count < numberOfIndexes)
         {
-            int index = random.Next(QuestionList.Count);
-            if (!list.Contains(QuestionList[index]) & list.Count <= numberOfIndexes)
+            int index = random.Next(questionList.Count);
+            if (!list.Contains(questionList[index]))
             {
-                list.Add(QuestionList[index]);
+                list.Add(questionList[index]);
             }
-
         }
         return list;
     }
-
 }

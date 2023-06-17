@@ -1,9 +1,10 @@
-using System;
 using System.Diagnostics;
-using System.Threading;
-
 class WaitDisplay
 {
+    public void ClearConsole()
+    {
+
+    }
     int spinnerCounter = 0;
 
     public List<string> GetMultipleLinesWithTimer(int timeToRun)
@@ -22,7 +23,7 @@ class WaitDisplay
         return list;
     }
 
-    public void displaySpinner(int numSecondsToRun)
+    public void DisplaySpinner(int numSecondsToRun)
     {
         Stopwatch stopWatch = new Stopwatch();
         stopWatch.Start();
@@ -43,17 +44,16 @@ class WaitDisplay
         Console.WriteLine("");
     }
 
-    public void displaySpinnerWithText(List<string> list, int numSecondsToRun)
+    public void DisplaySpinnerWithText(List<string> list, int numSecondsToRun)
     {
         foreach (string item in list)
         {
             Console.Write($"{item}");
-            displaySpinner(numSecondsToRun);
+            DisplaySpinner(numSecondsToRun);
         }
-
     }
 
-    public void displayCountDown(int numSecondsToRun, int totalActivity, List<string> list = default(List<string>), string text = "")
+    public void DisplayCountDown(int numSecondsToRun, int totalActivity, List<string> list = null, string text = "")
     {
         if (list?.Any() == true)
         {

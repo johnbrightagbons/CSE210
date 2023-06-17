@@ -1,17 +1,8 @@
-using System;
-
 class BreathingActivity : Activity
 {
-    List<string> activityMenu = new List<string> { "Breath in", "breath out" };
-    string description = "This activity will help you relax by walking your \n through breathing in and out slowly. \n Clear your mind and focus on your breathing.";
-    public BreathingActivity(string _nameOfActivity) : base(_nameOfActivity)
+    public BreathingActivity(string nameOfActivity) : base(nameOfActivity)
     {
-        SetDescription(description);
-        SetActivityMenu(activityMenu);
-    }
-
-    public List<string> getActivityList()
-    {
-        return activityMenu;
+        SetDescription("This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.");
+        SetActivityMenu(new List<string> { "Breath in", "Breath out" });
     }
 }

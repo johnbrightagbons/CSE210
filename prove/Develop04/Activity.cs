@@ -1,35 +1,39 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
-
-class Activity
+class  Activity
 {
+    private string _nameOfActivity;
+    public List<string> activityMenu;
+    private string _description;
 
-    private string _nameOfActivity = string.Empty;
-    private List<string> activityMenu;
-    private string description = string.Empty;
-
-    public Activity (string nameOfActivity)
+    public Activity(string nameOfActivity)
     {
-        activityMenu = nameOfActivity;
+        _nameOfActivity = nameOfActivity;
+        activityMenu = new List<string>();
+        _description = string.Empty;
     }
 
-    public void SetDescription(string _description)
+    public void SetDescription(string description)
     {
-        description = _description;
+        _description = description;
     }
 
-    public void SetActivityMenu(List<string> _activityMenu)
+    public void SetActivityMenu(List<string> activityMenu)
     {
-        activityMenu = _activityMenu.ToList();
+        activityMenu = activityMenu.ToList();
     }
+
     public int DisplayMenu()
     {
-        clearConsole();
+        ClearConsole();
         Console.WriteLine("Menu Options: ");
-        Console.WriteLine("   1.- Start the breathing activity");
-        Console.WriteLine("   2.- Start the reflection activity");
-        Console.WriteLine("   3.- Start the listing activity");
-        Console.WriteLine("   4.- Quit");
+        Console.WriteLine("   1. Start the breathing activity");
+        Console.WriteLine("   2. Start the reflection activity");
+        Console.WriteLine("   3. Start the listing activity");
+        Console.WriteLine("   4. Quit");
         Console.WriteLine("Kindly make a choice from the menu: ");
         int menuChoice = int.Parse(Console.ReadLine());
 
@@ -38,9 +42,9 @@ class Activity
 
     public int DisplayWelcomeMessage()
     {
-        clearConsole();
-        Console.WriteLine($"Welcome to the {char.ToUpper(nameOfActivity[0])}{nameOfActivity.Substring(1)} Activity");
-        Console.WriteLine($"{description}");
+        ClearConsole();
+        Console.WriteLine($"Welcome to the {char.ToUpper(_nameOfActivity[0])}{_nameOfActivity.Substring(1)} Activity");
+        Console.WriteLine($"{_description}");
         Console.WriteLine("How long in seconds will you like for a session? ");
         int timeChoice = int.Parse(Console.ReadLine());
         return timeChoice;
@@ -48,23 +52,27 @@ class Activity
 
     public void DisplayGetReady()
     {
-        clearConsole();
+        ClearConsole();
         Console.WriteLine("Get Ready...");
     }
 
-    public void clearConsole()
+    public void ClearConsole()
     {
         Console.Clear();
     }
 
-    public void FinishActivity(int timeToRun, string _nameOfActivity)
+    public void FinishActivity(int timeToRun)
     {
-        Console.WriteLine("Good Job You");
-        Console.WriteLine($"Ÿou have completed another {timeToRun} seconds of the {_nameOfActivity} Activity");
+        Console.WriteLine("Good Job!");
+        Console.WriteLine($"You have completed another {timeToRun} seconds of the {_nameOfActivity} Activity");
     }
 
-    public string getActivityName()
+    public string GetActivityName()
     {
-        return nameOfActivity;
+        return _nameOfActivity;
     }
 }
+
+
+
+

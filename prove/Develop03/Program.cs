@@ -4,26 +4,24 @@ class Program
 {
     static void Main(string[] args)
     {
-        scripturePassage scriptureList = new scripturePassage();
+        StartScripture scriptureList = new StartScripture();
         scriptureList.LoadToFile();
         string dataType = " ";
-        Scripture scripture = scriptureList.getScripture();
-        Reference reference = scripture.getReference();
+        Scripture scripture = scriptureList.GetScripture();
+        Reference reference = scripture.GetReference();
         while (dataType != "quit")
-
         {
-            Console.clear();
-            Console.WriteLine ($"{reference.getReference()} {scripture.getRenderedText()}\n ");
-            Console.WriteLine ("Kindly press enter from the keyboard to continue or kindly type 'quit' to end. ")
+            Console.Clear();
+            Console.WriteLine($"{reference.GetReference()} {scripture.GetRenderedText()}\n");
+            Console.WriteLine("Kindly press enter from the keyboard to continue or kindly type 'quit' to end. ");
             dataType = Console.ReadLine();
-            Console.clear();
-            scripture.hideWord();
+            Console.Clear();
+            scripture.HideWords();
 
-            if (scripture.IsCompleteHiden())
+            if (scripture.IsCompletelyHidden())
             {
                 dataType = "quit";
             }            
         }
-
     }
 }

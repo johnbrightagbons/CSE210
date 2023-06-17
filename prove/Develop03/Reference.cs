@@ -1,22 +1,18 @@
-using System;
-
-public class Reference;
-
-// Attributes of the reference class
+public class Reference
 {
     private string _book;
     private int _chapter;
     private int _verse;
     private int _endVerse;
 
-    public Reference (string book, int _chapter, int _verse);
+    public Reference(string book, int chapter, int verse)
     {
         _book = book;
         _chapter = chapter;
         _verse = verse;
     }
 
-    public Reference (string book, int _chapter, int _verse);
+    public Reference(string book, int chapter, int verse, int endVerse)
     {
         _book = book;
         _chapter = chapter;
@@ -24,13 +20,17 @@ public class Reference;
         _endVerse = endVerse;
     }
 
-    public string getReference()
+    public string GetReference()
     {
         string reference;
-        if (_endVerse == " ")
+        if (_endVerse == 0)
         {
-            reference = $"{_book} {_chapter}: {_verse}-{_endVerse}";
+            reference = $"{_book} {_chapter}:{_verse}-{_endVerse}";
         }
-        return reference
+        else
+        {
+            reference = $"{_book} {_chapter}:{_verse}";
+        }
+        return reference;
     }
 }
