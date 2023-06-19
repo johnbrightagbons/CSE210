@@ -1,4 +1,3 @@
-
 class ListingActivity : Activity
 {
     public ListingActivity(string nameOfActivity) : base(nameOfActivity)

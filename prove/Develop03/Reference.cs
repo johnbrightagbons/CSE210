@@ -22,15 +22,13 @@ public class Reference
 
     public string GetReference()
     {
-        string reference;
         if (_endVerse == 0)
         {
-            reference = $"{_book} {_chapter}:{_verse}-{_endVerse}";
+            return $"{_book} {_chapter}:{_verse}";
         }
         else
         {
-            reference = $"{_book} {_chapter}:{_verse}";
+            return $"{_book} {_chapter}:{_verse}-{_endVerse}";
         }
-        return reference;
     }
 }

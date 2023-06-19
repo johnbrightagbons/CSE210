@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-class  Activity
+class Activity
 {
     private string _nameOfActivity;
     public List<string> activityMenu;
@@ -21,9 +21,9 @@ class  Activity
         _description = description;
     }
 
-    public void SetActivityMenu(List<string> activityMenu)
+    public void SetActivityMenu(List<string> menu)
     {
-        activityMenu = activityMenu.ToList();
+        activityMenu = menu.ToList();
     }
 
     public int DisplayMenu()
@@ -34,7 +34,7 @@ class  Activity
         Console.WriteLine("   2. Start the reflection activity");
         Console.WriteLine("   3. Start the listing activity");
         Console.WriteLine("   4. Quit");
-        Console.WriteLine("Kindly make a choice from the menu: ");
+        Console.WriteLine("Please choose an option from the menu: ");
         int menuChoice = int.Parse(Console.ReadLine());
 
         return menuChoice;
@@ -45,7 +45,7 @@ class  Activity
         ClearConsole();
         Console.WriteLine($"Welcome to the {char.ToUpper(_nameOfActivity[0])}{_nameOfActivity.Substring(1)} Activity");
         Console.WriteLine($"{_description}");
-        Console.WriteLine("How long in seconds will you like for a session? ");
+        Console.WriteLine("How long in seconds would you like for a session? ");
         int timeChoice = int.Parse(Console.ReadLine());
         return timeChoice;
     }
@@ -72,7 +72,3 @@ class  Activity
         return _nameOfActivity;
     }
 }
-
-
-
-

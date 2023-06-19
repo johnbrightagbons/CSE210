@@ -1,37 +1,19 @@
 public class StartScripture
 {
-    private List<Scripture> _scriptureTitle = new List<Scripture>();
-    private Random random = new Random();
+    public List<Scripture> ScriptureTitle { get; private set; }
 
-    public void LoadToFile()
+    public StartScripture()
     {
-        string filename = "scriptures.txt";
-        string[] lines = System.IO.File.ReadAllLines(filename);
-
-        foreach (string line in lines)
-        {
-            string[] half = line.Split("-");
-            string[] referenceString = half[0].Split(",");
-            string items = half[1].Trim();
-            Reference reference;
-
-            if (referenceString.Length == 3)
-            {
-                reference = new Reference(referenceString[0], int.Parse(referenceString[1]), int.Parse(referenceString[2]));
-            }
-            else
-            {
-                reference = new Reference(referenceString[0], int.Parse(referenceString[1]), int.Parse(referenceString[2]), int.Parse(referenceString[3]));
-            }
-
-            Scripture scripture = new Scripture(items, reference);
-            _scriptureTitle.Add(scripture);
-        }
+        LoadScriptures();
     }
 
-    public Scripture GetScripture()
+    private void LoadScriptures()
     {
-        int selectionIndex = random.Next(0, _scriptureTitle.Count);
-        return _scriptureTitle[selectionIndex];
+        ScriptureTitle = new List<Scripture>();
+
+        string scriptureText = "charity is the pure love of Christ, and it endureth forever; and whosoe is found possessed of it";
+        Reference reference = new Reference("Moroni", 7, 47);
+        Scripture scripture = new Scripture(scriptureText, reference);
+        ScriptureTitle.Add(scripture);
     }
 }

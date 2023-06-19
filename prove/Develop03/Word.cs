@@ -23,13 +23,6 @@ public class Word
 
     public bool IsHidden()
     {
-        if (_word.Substring(0, 1) == "_")
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return _word == "";
     }
 }

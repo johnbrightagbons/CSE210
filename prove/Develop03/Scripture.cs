@@ -26,8 +26,8 @@ public class Scripture
         while (_words[randomDex].IsHidden())
         {
             randomDex = random.Next(0, _words.Count);
-            _words[randomDex].HideWord();
         }
+        _words[randomDex].HideWord();
     }
 
     public string GetRenderedText()
@@ -37,26 +37,18 @@ public class Scripture
         {
             reply += _words[j].ShowWord() + " ";
         }
-        return reply;
+        return reply.TrimEnd();
     }
 
     public bool IsCompletelyHidden()
     {
-        int count = 0;
-        for (int j = 0; j < _words.Count; j++)
+        foreach (Word word in _words)
         {
-            if (_words[j].ShowWord().Substring(0, 1) == "-")
+            if (!word.IsHidden())
             {
-                count++;
+                return false;
             }
         }
-        if (count == _words.Count)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return true;
     }
 }

@@ -1,90 +1,37 @@
-using System.Diagnostics;
 class WaitDisplay
 {
-    public void ClearConsole()
-    {
+    private int _waitingTime;
+    private const int AnimationDelay = 200; // Delay between animation frames in milliseconds
 
-    }
-    int spinnerCounter = 0;
-
-    public List<string> GetMultipleLinesWithTimer(int timeToRun)
+    public WaitDisplay(int waitingTime)
     {
-        Stopwatch stopWatch = new Stopwatch();
-        stopWatch.Start();
-        List<string> list = new List<string>();
-        while (stopWatch.ElapsedMilliseconds / 1000 < timeToRun)
-        {
-            Console.Write(">");
-            string line = Console.ReadLine();
-            list.Add(line);
-        }
-        Console.Write("");
-        Console.WriteLine("");
-        return list;
+        _waitingTime = waitingTime;
     }
 
-    public void DisplaySpinner(int numSecondsToRun)
+    public void DisplayAndWait(string message)
     {
-        Stopwatch stopWatch = new Stopwatch();
-        stopWatch.Start();
-        while (stopWatch.ElapsedMilliseconds / 1000 < numSecondsToRun)
+        Console.Write(message);
+        AnimateWaiting();
+        Console.WriteLine();
+    }
+
+    private void AnimateWaiting()
+    {
+        Console.CursorVisible = false;
+
+        string[] animationFrames = { "|", "/", "-", "\\" };
+
+        DateTime endTime = DateTime.Now.AddMilliseconds(_waitingTime);
+        while (DateTime.Now < endTime)
         {
-            spinnerCounter++;
-            switch (spinnerCounter % 4)
+            foreach (string frame in animationFrames)
             {
-                case 0: Console.Write("/"); break;
-                case 1: Console.Write("-"); break;
-                case 2: Console.Write("\\"); break;
-                case 3: Console.Write("|"); break;
+                Console.Write(frame);
+                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                Thread.Sleep(AnimationDelay);
             }
-            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
-            Thread.Sleep(200);
         }
-        Console.Write("");
-        Console.WriteLine("");
-    }
 
-    public void DisplaySpinnerWithText(List<string> list, int numSecondsToRun)
-    {
-        foreach (string item in list)
-        {
-            Console.Write($"{item}");
-            DisplaySpinner(numSecondsToRun);
-        }
-    }
-
-    public void DisplayCountDown(int numSecondsToRun, int totalActivity, List<string> list = null, string text = "")
-    {
-        if (list?.Any() == true)
-        {
-            while (totalActivity > numSecondsToRun)
-            {
-                foreach (string item in list)
-                {
-                    for (int i = numSecondsToRun; i >= 1; i--)
-                    {
-                        Console.Write($"{item}...{i}");
-                        Console.SetCursorPosition(0, Console.CursorTop);
-                        Thread.Sleep(1000);
-                    }
-                    Console.Write("");
-                    Console.WriteLine("");
-                    totalActivity = totalActivity - numSecondsToRun;
-                }
-            }
-            Thread.Sleep(200);
-        }
-        else
-        {
-            for (int i = numSecondsToRun; i >= 1; i--)
-            {
-                Console.Write($"{text} {i}");
-                Console.SetCursorPosition(0, Console.CursorTop);
-                Thread.Sleep(1000);
-            }
-            Console.Write("");
-            Console.WriteLine("");
-            Thread.Sleep(200);
-        }
+        Console.CursorVisible = true;
     }
 }

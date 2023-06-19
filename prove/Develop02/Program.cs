@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace JournalApplication
 {
@@ -8,58 +6,34 @@ namespace JournalApplication
     {
         static void Main(string[] args)
         {
+            Journal journal = new Journal("journal.txt");
             int reply = 0;
-            string textQuestion = string.Empty;
-            string file = string.Empty;
-            Entry entry = new Entry();
-            Journal journal = new Journal();
-
-            entry.ShowMenu();
 
             while (reply != 5)
             {
-                entry.menu();
+                Entry.ShowMenu();
                 reply = int.Parse(Console.ReadLine());
 
-                if (reply == 1)
+                switch (reply)
                 {
-                    Prompt prompt = new Prompt();
-                    textQuestion = prompt.DisplayRandomQuestion();
-                    Console.WriteLine(textQuestion);
-                    string answer = Console.ReadLine();
-                    string date = entry.DateToString();
-                    entry.entries.Add($"Date: {date} - prompt: {textQuestion} \n {answer}");
-                }
-                else if (reply == 2)
-                {
-                    if (File.Exists(journal.FileName))
-                    {
-                        journal.DisplayJournal();
-                    }
-                }
-                else if (reply == 3)
-                {
-                    Console.WriteLine("What is your file name? ");
-                    file = Console.ReadLine();
-                    journal.FileName = file;
-                }
-                else if (reply == 4)
-                {
-                    if (File.Exists(journal.FileName))
-                    {
-                        foreach (string i in entry.entries)
-                        {
-                            journal.WriteFile(i);
-                        }
-                    }
-                }
-                else if (reply == 5)
-                {
-                    Console.WriteLine("Exiting the program...");
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please try again.");
+                    case 1:
+                        journal.WriteToJournal();
+                        break;
+                    case 2:
+                        journal.DisplayTheEntries();
+                        break;
+                    case 3:
+                        journal.LoadJournal();
+                        break;
+                    case 4:
+                        journal.SaveJournal();
+                        break;
+                    case 5:
+                        Console.WriteLine("Exiting the program...Have a nice day");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input. Please try again.");
+                        break;
                 }
             }
         }

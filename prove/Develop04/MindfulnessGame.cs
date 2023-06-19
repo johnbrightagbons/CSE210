@@ -1,68 +1,80 @@
 class MindfulnessGame
 {
-    private WaitDisplay display;
+    private BreathingActivity breathingActivity;
+    private ReflectionActivity reflectionActivity;
+    private ListingActivity listingActivity;
 
     public MindfulnessGame()
     {
-        display = new WaitDisplay();
-        StartGame();
+        breathingActivity = new BreathingActivity("Breathing");
+        reflectionActivity = new ReflectionActivity("Reflection");
+        listingActivity = new ListingActivity("Listing");
     }
 
     public void StartGame()
     {
-        int choice = DisplayMainMenu();
-        while (choice != 4)
+        bool quit = false;
+
+        while (!quit)
         {
-            switch (choice)
+            int menuChoice = DisplayMainMenu();
+
+            switch (menuChoice)
             {
                 case 1:
-                    BreathingActivity breath = new BreathingActivity("Breathing");
-                    int breathTimeToRun = breath.DisplayWelcomeMessage();
-                    breath.DisplayGetReady();
-                    display.DisplaySpinner(3);
-                    display.DisplayCountDown(4, breathTimeToRun, breath.GetActivityMenu());
-                    breath.FinishActivity(breathTimeToRun);
-                    display.DisplaySpinner(5);
+                    StartActivity(breathingActivity);
                     break;
                 case 2:
-                    ReflectionActivity reflect = new ReflectionActivity("Reflection");
-                    int reflectTimeToRun = reflect.DisplayWelcomeMessage();
-                    reflect.SetNumberOfSecondsToThink(reflectTimeToRun);
-                    reflect.DisplayGetReady();
-                    display.DisplaySpinner(3);
-                    reflect.GetRandomReflectionActivity();
-                    display.DisplayCountDown(4, reflectTimeToRun);
-                    display.DisplaySpinnerWithText(reflect.GetRandomReflectionQuestionActivity(), reflect.GetNumberOfSecondsToThink());
-                    reflect.FinishActivity(reflectTimeToRun);
-                    display.DisplaySpinner(5);
+                    StartActivity(reflectionActivity);
                     break;
                 case 3:
-                    ListingActivity listing = new ListingActivity("Listing");
-                    int listingTimeToRun = listing.DisplayWelcomeMessage();
-                    listing.DisplayGetReady();
-                    display.DisplaySpinner(3);
-                    listing.DisplayActivity();
-                    display.DisplayCountDown(4, listingTimeToRun);
-                    display.DisplaySpinnerWithText(display.GetMultipleLinesWithTimer(listingTimeToRun), listingTimeToRun);
-                    listing.FinishActivity(listingTimeToRun);
-                    display.DisplaySpinner(5);
+                    listingActivity.DisplayActivity();
+                    break;
+                case 4:
+                    quit = true;
+                    Console.WriteLine("Thank you for playing! Goodbye!");
+                    break;
+                default:
+                    Console.WriteLine("Invalid menu choice. Please try again.");
                     break;
             }
-            choice = DisplayMainMenu();
         }
-        Environment.Exit(0);
     }
 
     public int DisplayMainMenu()
     {
-        display.ClearConsole();
+        Console.Clear();
+        Console.WriteLine("Mindfulness Activities");
+        Console.WriteLine("----------------------");
         Console.WriteLine("Menu Options: ");
-        Console.WriteLine("   1. Start the breathing activity");
-        Console.WriteLine("   2. Start the reflection activity");
-        Console.WriteLine("   3. Start the listing activity");
+        Console.WriteLine("   1. Breathing Activity");
+        Console.WriteLine("   2. Reflection Activity");
+        Console.WriteLine("   3. Listing Activity");
         Console.WriteLine("   4. Quit");
         Console.WriteLine("Please choose an option from the menu: ");
         int menuChoice = int.Parse(Console.ReadLine());
         return menuChoice;
+    }
+
+    public void StartActivity(Activity activity)
+    {
+        int timeChoice = activity.DisplayWelcomeMessage();
+        activity.DisplayGetReady();
+
+        DateTime startTime = DateTime.Now;
+        DateTime endTime = startTime.AddSeconds(timeChoice);
+
+        while (DateTime.Now < endTime)
+        {
+            foreach (string menuOption in activity.activityMenu)
+            {
+                Console.WriteLine(menuOption);
+                Thread.Sleep(1000);
+            }
+        }
+
+        activity.FinishActivity(timeChoice);
+        Console.WriteLine("Press any key to continue...");
+        Console.ReadKey();
     }
 }
