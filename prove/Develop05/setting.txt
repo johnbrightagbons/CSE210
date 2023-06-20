@@ -1,0 +1,3 @@
+Scripture reading||False
+Running Marathon||False
+Temple attendance||False
