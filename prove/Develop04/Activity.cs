@@ -71,4 +71,9 @@ class Activity
     {
         return _nameOfActivity;
     }
+
+    public List<string> GetActivityMenu()
+    {
+        return activityMenu;
+    }
 }
