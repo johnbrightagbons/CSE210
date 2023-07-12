@@ -1,27 +1,32 @@
-public class Address
+using System;
+
+namespace Foundation2
 {
-    private string streetAddress;
-    private string city;
-    private string stateOrProvince;
-    private string country;
-
-    public Address(string streetAddress, string city, string stateOrProvince, string country)
+    public class Address
     {
-        this.streetAddress = streetAddress;
-        this.city = city;
-        this.stateOrProvince = stateOrProvince;
-        this.country = country;
-    }
+        private string _streetAddress;
+        private string _city;
+        private string _stateOrProvince;
+        private string _country;
 
-    // Check if the address is in the USA
-    public bool IsInUSA()
-    {
-        return country == "USA";
-    }
+        public Address(string streetAddress, string city, string stateOrProvince, string country)
+        {
+            this._streetAddress = streetAddress;
+            this._city = city;
+            this._stateOrProvince = stateOrProvince;
+            this._country = country;
+        }
 
-    // Get the full address as a formatted string
-    public string GetFullAddress()
-    {
-        return $"{streetAddress}\n{city}, {stateOrProvince}\n{country}";
+        // Check if the address is in the USA
+        public bool IsInUSA()
+        {
+            return _country == "USA";
+        }
+
+        // Get the full address as a formatted string
+        public string GetFullAddress()
+        {
+            return $"{_streetAddress}, {_city}, {_stateOrProvince}, {_country}";
+        }
     }
 }

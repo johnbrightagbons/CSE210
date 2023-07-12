@@ -1,78 +1,49 @@
-using System;
-using System.Collections.Generic;
-
-
-class Product
+public class Product
 {
-    private string productName;
-    private string productId;
-    private decimal price;
-    private int quantity;
+    private string _productName;
+    private string _productId;
+    private decimal _price;
+    private int _quantity;
 
     public Product(string productName, string productId, decimal price, int quantity)
     {
-        this.productName = productName;
-        this.productId = productId;
-        this.price = price;
-        this.quantity = quantity;
+        _productName = productName;
+        _productId = productId;
+        _price = price;
+        _quantity = quantity;
     }
 
-
+    // Calculates the total price of the product based on price and quantity
     public decimal CalculateTotalPrice()
     {
-        return price * quantity;
+        return _price * _quantity;
     }
 
-    // Write the getter and setter for the private variables
-    public string Name
+    // Getter and setter for the product name
+    public string ProductName
     {
-        get
-        {
-            return Name;
-        }
-        set
-        {
-            Name = value;
-        }
-    } 
+        get { return _productName; }
+        set { _productName = value; }
+    }
 
+    // Getter and setter for the product ID
     public string ProductId
     {
-        get 
-        {
-            return ProductId;
-        }
-        set
-        {
-            ProductId = value;
-        }
+        get { return _productId; }
+        set { _productId = value; }
     }
 
-
-    public decimal Price 
+    // Getter and setter for the price
+    public decimal Price
     {
-        get
-        {
-            return Price;
-        }
-        set
-        {
-            Price =value;
-        }
+        get { return _price; }
+        set { _price = value; }
     }
 
-
-    public int Quantity 
+    // Getter and setter for the quantity
+    public int Quantity
     {
-        get
-        {
-            return Quantity;
-        }
-        set
-        {
-            Quantity = value;
-        }
+        get { return _quantity; }
+        set { _quantity = value; }
     }
-
-    public object ProductName { get; internal set; }
 }

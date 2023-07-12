@@ -1,0 +1,36 @@
+using System;
+
+class Swimming : Activity
+{
+    private int laps;
+
+    public Swimming(DateTime date, int lengthInMinutes, int laps)
+        : base(date, lengthInMinutes)
+    {
+        this.laps = laps;
+    }
+
+    public override double GetDistance()
+    {
+        return laps * 50.0 / 1000.0;
+    }
+
+    public override double GetSpeed()
+    {
+        double distanceKm = GetDistance();
+        return distanceKm / (lengthInMinutes / 60.0);
+    }
+
+    public override double GetPace()
+    {
+        double distanceKm = GetDistance();
+        return lengthInMinutes / distanceKm;
+    }
+
+    public override string GetSummary()
+    {
+        double distanceKm = GetDistance();
+        double distanceMiles = distanceKm * 0.62;
+        return $"{date: dd MM yyyy} Swimming ({lengthInMinutes} min) - Distance: {distanceMiles:F1} miles, Speed: {GetSpeed():F1} mph, Pace: {GetPace():F1} min/mile";
+    }
+}

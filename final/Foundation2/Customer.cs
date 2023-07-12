@@ -1,25 +1,30 @@
-public class Customer
+using System;
+
+namespace Foundation2
 {
-    private string name;
-    private Address address;
-
-    public Customer(string name, Address address)
+    public class Customer
     {
-        this.name = name;
-        this.address = address;
-    }
+        private string _name;
+        private Address _address;
 
-    // Check if the customer's address is in the USA
-    public bool IsInUSA()
-    {
-        return address.IsInUSA();
-    }
+        public Customer(string name, Address address)
+        {
+            this._name = name;
+            this._address = address;
+        }
 
-    internal object GetFullAddress()
-    {
-        throw new NotImplementedException();
-    }
+        // Check if the customer's address is in the USA
+        public bool IsInUSA()
+        {
+            return _address.IsInUSA();
+        }
 
-    // Getter for private variable
-    public string Name { get { return name; } }
+        public string GetFullAddress()
+        {
+            return _address.GetFullAddress();
+        }
+
+        // Getter for private variable
+        public string Name { get { return _name; } }
+    }
 }

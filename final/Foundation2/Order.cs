@@ -1,62 +1,65 @@
 using System;
 using System.Collections.Generic;
 
-class Order
+namespace Foundation2
 {
-    private List<Product> products;
-    private Customer customer;
-
-    public Order(Customer customer)
+    public class Order
     {
-        this.customer = customer;
-        products = new List<Product>();
-    }
+        private List<Product> products;
+        private Customer customer;
 
-    // Add a product to the order
-    public void AddProduct(Product product)
-    {
-        products.Add(product);
-    }
-
-    // Calculate the total price of the order
-    public decimal GetTotalPrice()
-    {
-        decimal totalPrice = 0;
-        foreach (var product in products)
+        public Order(Customer customer)
         {
-            totalPrice += product.CalculateTotalPrice();
+            this.customer = customer;
+            products = new List<Product>();
         }
 
-        // Add shipping cost based on the customer's location
-        if (customer.IsInUSA())
+        // Add a product to the order
+        public void AddProduct(Product product)
         {
-            totalPrice += 5; // $5 shipping cost for USA
-        }
-        else
-        {
-            totalPrice += 35; // $35 shipping cost for non-USA
+            products.Add(product);
         }
 
-        return totalPrice;
-    }
-
-    // Generate a packing label with product name and id for each product
-    public string GetPackingLabel()
-    {
-        string packingLabel = "Packing Label:\n";
-        foreach (var product in products)
+        // Calculate the total price of the order
+        public decimal GetTotalPrice()
         {
-            packingLabel += $"Product: {product.ProductName}, ID: {product.ProductId}\n";
-        }
-        return packingLabel;
-    }
+            decimal totalPrice = 0;
+            foreach (var product in products)
+            {
+                totalPrice += product.CalculateTotalPrice();
+            }
 
-    // Generate a shipping label with customer name and address
-    public string GetShippingLabel()
-    {
-        string shippingLabel = "Shipping Label:\n";
-        shippingLabel += $"Customer Name: {customer.Name}\n";
-        shippingLabel += $"Address:\n{customer.GetFullAddress()}\n";
-        return shippingLabel;
+            // Add shipping cost based on the customer's location
+            if (customer.IsInUSA())
+            {
+                totalPrice += 5; // $5 shipping cost for USA
+            }
+            else
+            {
+                totalPrice += 35; // $35 shipping cost for non-USA
+            }
+
+            return totalPrice;
+        }
+
+        // Generate a packing label with product name and id for each product
+        public string GetPackingLabel()
+        {
+            string packingLabel = "Packing Label:\n";
+            foreach (var product in products)
+            {
+                packingLabel += $"Product: {product.ProductName}, ID: {product.ProductId}\n";
+            }
+            return packingLabel;
+        }
+
+        // Generate a shipping label with customer name and address
+        public string GetShippingLabel()
+        {
+            string shippingLabel = "Shipping Label:\n";
+            shippingLabel += $"Customer Name: {customer.Name}\n";
+            shippingLabel += $"Address:\n{customer.GetFullAddress()}\n";
+            return shippingLabel;
+        }
     }
 }
